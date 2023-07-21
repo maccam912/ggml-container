@@ -102,69 +102,69 @@ def create_role_or_content(result: str) -> Role | Content:
     return Content(content=result)
 
 
-def create_delta(result: str) -> Delta:
-    delta = Delta(
-        id="",
-        object="",
-        created=0,
-        model="",
-        choices=[
-            DeltaChoice(
-                index=0, finish_reason=None, delta=create_role_or_content(result)
-            )
-        ],
-    )
-    return delta
+# def create_delta(result: str) -> Delta:
+#     delta = Delta(
+#         id="",
+#         object="",
+#         created=0,
+#         model="",
+#         choices=[
+#             DeltaChoice(
+#                 index=0, finish_reason=None, delta=create_role_or_content(result)
+#             )
+#         ],
+#     )
+#     return delta
 
 
-async def stream_subprocess_stdout(cmd: List[str]):
-    # Create subprocess
-    process = await asyncio.create_subprocess_exec(*cmd, stdout=subprocess.PIPE)
+# async def stream_subprocess_stdout(cmd: List[str]):
+#     # Create subprocess
+#     process = await asyncio.create_subprocess_exec(*cmd, stdout=subprocess.PIPE)
 
-    # Create async generator
-    while True:
-        if process.returncode is not None:
-            break  # subprocess has finished
+#     # Create async generator
+#     while True:
+#         if process.returncode is not None:
+#             break  # subprocess has finished
 
-        line = await process.stdout.read(1000)  # read up to 1000 bytes
-        if line:
-            logger.info(f"Got line: {line}")
-            yield create_delta(line).json()
+#         line = await process.stdout.read(1000)  # read up to 1000 bytes
+#         if line:
+#             logger.info(f"Got line: {line}")
+#             yield create_delta(line).json()
 
-        await asyncio.sleep(0.5)  # wait for half a second
+#         await asyncio.sleep(0.5)  # wait for half a second
 
-    # Wait for the subprocess to finish
-    await process.wait()
-    yield create_delta("[DONE]").json()
+#     # Wait for the subprocess to finish
+#     await process.wait()
+#     yield create_delta("[DONE]").json()
 
 
 class FalconController(Controller):
     path = "/v1/chat/completions"
 
     @post()
-    async def run(self, data: Request) -> Stream:
+    async def run(self, data: Request) -> Response:
         logger.info("In run")
         logger.info("Got request")
         prompt = create_prompt(data.messages)
-        logger.info("created prompt")
+        logger.info("created prompt: " + prompt)
         cmd = [
             "/usr/local/bin/main",
-            "-t",
-            "11",
-            "-c",
-            "2048",
-            "-b",
-            "64",
-            "--prompt-cache",
-            "/app/models/cache",
-            "--prompt-cache-all",
+            # "-t",
+            # "11",
+            # "-c",
+            # "2048",
+            # "-b",
+            # "64",
+            # "--prompt-cache",
+            # "/app/models/cache",
+            # "--prompt-cache-all",
             "-m",
             "/app/models/llama-2-13b-guanaco-qlora.ggmlv3.q5_K_M.bin",
             "-p",
             prompt,
         ]
 
-        return Stream(stream_subprocess_stdout(cmd))
+        return create_response(subprocess.check_output(cmd).decode("utf-8"))
 
 
 app = Litestar(route_handlers=[FalconController])
