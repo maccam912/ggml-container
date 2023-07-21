@@ -99,7 +99,6 @@ def create_role_or_content(result: str) -> Role | Content:
         return Role(role="system")
     elif result.startswith("### User:"):
         return Role(role="user")
-    else:
     return Content(content=result)
 
 
