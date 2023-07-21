@@ -66,12 +66,12 @@ def create_prompt(messages: List[Message]) -> str:
     prompt = ""
     for m in messages:
         if m.role == "user":
-            prompt += "### User:" + "\n" + m.content + "\n"
+            prompt += "### Human:" + m.content + "\n"
         elif m.role == "assistant":
-            prompt += "### Response:" + "\n" + m.content + "\n"
+            prompt += "### Assistant:" + m.content + "\n"
         elif m.role == "system":
-            prompt += "### System:" + "\n" + m.content + "\n"
-    prompt += "### Response:\n"
+            prompt += "### System:" + m.content + "\n"
+    prompt += "### Assistant:"
     return prompt
 
 
@@ -93,13 +93,13 @@ def create_response(result: str) -> Response:
 
 
 def create_role_or_content(result: str) -> Role | Content:
-    # if result.startswith("### Response:"):
-    #     return Role(role="assistant")
-    # elif result.startswith("### System:"):
-    #     return Role(role="system")
-    # elif result.startswith("### User:"):
-    #     return Role(role="user")
-    # else:
+    if result.startswith("### Response:"):
+        return Role(role="assistant")
+    elif result.startswith("### System:"):
+        return Role(role="system")
+    elif result.startswith("### User:"):
+        return Role(role="user")
+    else:
     return Content(content=result)
 
 
