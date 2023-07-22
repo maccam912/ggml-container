@@ -159,7 +159,7 @@ class FalconController(Controller):
             "/app/models/cache",
             "--prompt-cache-all",
             "-m",
-            "/app/models/llama-2-13b-guanaco-qlora.ggmlv3.q5_K_M.bin",
+            "/app/models/nous-hermes-llama2-13b.ggmlv3.q8_0.bin",
             "-p",
             prompt,
         ]
