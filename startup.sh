@@ -8,4 +8,4 @@ if [ ! -f /app/models/codellama-34b-instruct.Q5_K_M.gguf ]; then
     popd
 fi
 
-server -m /app/models/codellama-34b-instruct.Q5_K_M.gguf
+server -m /app/models/codellama-34b-instruct.Q5_K_M.gguf --host "0.0.0.0"
