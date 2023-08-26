@@ -2,10 +2,10 @@
 set -ex
 
 cd llama.cpp && make -j && cp server /usr/local/bin/ && cd ..
-if [ ! -f /app/models/codellama-34b-instruct.Q8_0.gguf ]; then
+if [ ! -f /app/models/llama2-70b-oasst-sft-v10.Q5_K_M.gguf ]; then
     pushd /app/models
-    wget https://huggingface.co/TheBloke/CodeLlama-34B-Instruct-GGUF/resolve/main/codellama-34b-instruct.Q8_0.gguf
+    wget https://huggingface.co/TheBloke/Llama2-70B-OASST-SFT-v10-GGUF/resolve/main/llama2-70b-oasst-sft-v10.Q5_K_M.gguf
 fi
 
-cp /app/models/codellama-34b-instruct.Q8_0.gguf /app/codellama-34b-instruct.Q8_0.gguf
-server -m /app/codellama-34b-instruct.Q8_0.gguf --host "0.0.0.0"
+cp /app/models/llama2-70b-oasst-sft-v10.Q5_K_M.gguf /app/llama2-70b-oasst-sft-v10.Q5_K_M.gguf
+server -m /app/llama2-70b-oasst-sft-v10.Q5_K_M.gguf --host "0.0.0.0"
