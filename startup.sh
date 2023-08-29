@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ex
 
-URL="https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v1-GGUF/resolve/main/phind-codellama-34b-v1.Q8_0.gguf"
-MODEL="phind-codellama-34b-v1.Q8_0.gguf"
+URL="https://huggingface.co/TheBloke/CodeLlama-34B-Instruct-GGUF/resolve/main/codellama-34b-instruct.Q5_K_M.gguf"
+MODEL="codellama-34b-instruct.Q5_K_M.gguf"
 
 cd llama.cpp && make -j && cp server /usr/local/bin/ && cd ..
 if [ ! -f /app/models/$MODEL ]; then
