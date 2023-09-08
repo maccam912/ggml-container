@@ -2,7 +2,7 @@
 set -ex
 
 URL="https://huggingface.co/TheBloke/CodeLlama-34B-Instruct-GGUF/resolve/main/codellama-34b-instruct.Q5_K_M.gguf"
-MODEL="codellama-34b-instruct.Q5_K_M.gguf"
+MODEL="falcon-180b-chat.Q5_K_S.gguf"
 
 cd llama.cpp && make LLAMA_OPENBLAS=1 -j && cp server /usr/local/bin/ && cd ..
 if [ ! -f /app/models/$MODEL ]; then
