@@ -24,4 +24,5 @@ if [ ! -z "$URL" ]; then
 fi
 
 cp /app/models/$MODEL /app/$MODEL
-./koboldcpp.py /app/$MODEL 8080
+./koboldcpp.py /app/$MODEL 8080 --nommap
+
