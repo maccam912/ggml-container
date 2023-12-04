@@ -6,7 +6,7 @@ MODEL=${MODEL:-""}
 URL=${URL:-""}
 DEBUG=${DEBUG:-""}
 
-cd koboldcpp && make LLAMA_OPENBLAS=1 -j
+cd llama.cpp && make LLAMA_OPENBLAS=1 -j && cp server /usr/local/bin/ && cd ..
 
 # Only download the model if URL is set
 if [ ! -z "$URL" ]; then
@@ -24,5 +24,4 @@ if [ ! -z "$URL" ]; then
 fi
 
 cp /app/models/$MODEL /app/$MODEL
-./koboldcpp.py /app/$MODEL 8080 --nommap
-
+server -m /app/$MODEL --host "0.0.0.0"
