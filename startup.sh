@@ -6,7 +6,8 @@ MODEL=${MODEL:-""}
 URL=${URL:-""}
 DEBUG=${DEBUG:-""}
 
-cd llama.cpp && make LLAMA_OPENBLAS=1 -j && cp server /usr/local/bin/ && cd ..
+#cd llama.cpp && make LLAMA_OPENBLAS=1 -j && cp server /usr/local/bin/ && cd ..
+cd llama.cpp && make -j && cp server /usr/local/bin/ && cd ..
 
 # Only download the model if URL is set
 if [ ! -z "$URL" ]; then
