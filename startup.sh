@@ -25,4 +25,4 @@ if [ ! -z "$URL" ]; then
 fi
 
 # cp /app/models/$MODEL /app/$MODEL
-server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap
+server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768
