@@ -25,4 +25,4 @@ if [ ! -z "$URL" ]; then
 fi
 
 # cp /app/models/$MODEL /app/$MODEL
-server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb -np 2 -t 24 --numa #-spf /app/systemprompt.json
+server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb --numa #-spf /app/systemprompt.json
