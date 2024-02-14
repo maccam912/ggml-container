@@ -34,8 +34,11 @@ if [ ! -z "$URL" ]; then
             popd
         fi
     else
+        # Generate suffixes 'a' to 'z' as needed
+        declare -a suffixes=({a..z})
         for part in $(seq 1 $PARTS); do
-            part_suffix=$(printf "\x61" | tr '\000-\177' '\141-\172' | cut -c $part) # Convert part number to a letter starting from 'a'
+            part_index=$((part - 1)) # Adjust index for 0-based array indexing
+            part_suffix=${suffixes[$part_index]}
             filename="/app/models/${MODEL}-split-$part_suffix"
             if [ ! -f "$filename" ]; then
                 pushd /app/models
