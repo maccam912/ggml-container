@@ -21,7 +21,7 @@ download_and_verify() {
 # Only download the model if URL is set
 if [ ! -z "$URL" ]; then
     if [ "$PARTS" -eq 1 ]; then
-        local filename="/app/models/$MODEL"
+        filename="/app/models/$MODEL"
         if [ ! -f "$filename" ]; then
             pushd /app/models
 
@@ -35,8 +35,8 @@ if [ ! -z "$URL" ]; then
         fi
     else
         for part in $(seq 1 $PARTS); do
-            local part_suffix=$(printf "\x61" | tr '\000-\177' '\141-\172' | cut -c $part) # Convert part number to a letter starting from 'a'
-            local filename="/app/models/${MODEL}-split-$part_suffix"
+            part_suffix=$(printf "\x61" | tr '\000-\177' '\141-\172' | cut -c $part) # Convert part number to a letter starting from 'a'
+            filename="/app/models/${MODEL}-split-$part_suffix"
             if [ ! -f "$filename" ]; then
                 pushd /app/models
 
@@ -44,7 +44,7 @@ if [ ! -z "$URL" ]; then
                     sleep 3600
                 fi
 
-                local part_url="${URL}-split-$part_suffix"
+                part_url="${URL}-split-$part_suffix"
                 download_and_verify "$part_url" "$filename"
 
                 popd
