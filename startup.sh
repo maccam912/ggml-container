@@ -63,4 +63,4 @@ if [ ! -z "$URL" ]; then
 fi
 
 # Start server with the (potentially reassembled) model
-server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb --numa
+server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb
