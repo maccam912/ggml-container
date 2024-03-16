@@ -7,7 +7,7 @@ URL=${URL:-""}
 DEBUG=${DEBUG:-""}
 PARTS=${PARTS:-1} # Indicates the number of parts. Default is 1 for a single part.
 
-cd llama.cpp && make -j && cp server /usr/local/bin/ && cd ..
+cd llama.cpp && make -j LLAMA_OPENBLAS=1 && cp server /usr/local/bin/ && cd ..
 
 download_and_verify() {
     local url=$1
