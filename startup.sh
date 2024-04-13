@@ -63,12 +63,12 @@ if [ ! -z "$URL" ]; then
         done
 
         # Combine parts if necessary and clean up
-        pushd /app/models
-        echo "Combining parts into a single model file: $MODEL"
-        cat ${MODEL}-*-of-*.gguf > "$MODEL"
-        echo "Cleaning up individual parts"
-        rm ${MODEL}-*-of-*.gguf
-        popd
+        # pushd /app/models
+        # echo "Combining parts into a single model file: $MODEL"
+        # cat ${MODEL}-*-of-*.gguf > "$MODEL"
+        # echo "Cleaning up individual parts"
+        # rm ${MODEL}-*-of-*.gguf
+        # popd
     fi
 fi
 
