@@ -74,4 +74,4 @@ fi
 
 # Start server with the (potentially reassembled) model
 echo "Starting server with model: /app/models/$MODEL"
-server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb
+server -m /app/models/$MODEL --host "0.0.0.0" --no-mmap -c 32768 -b 32768 -cb --chat-template zephyr
