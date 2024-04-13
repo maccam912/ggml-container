@@ -34,12 +34,14 @@ if [ ! -z "$URL" ]; then
             popd
         fi
     else
-        # Generate suffixes 'a' to 'z' as needed
-        declare -a suffixes=({a..z})
+        # Commented out: Generate suffixes 'a' to 'z' as needed
+        # declare -a suffixes=({a..z})
         for part in $(seq 1 $PARTS); do
-            part_index=$((part - 1)) # Adjust index for 0-based array indexing
-            part_suffix=${suffixes[$part_index]}
-            filename="/app/models/${MODEL}-split-$part_suffix"
+            # part_index=$((part - 1)) # Adjust index for 0-based array indexing
+            # part_suffix=${suffixes[$part_index]}
+            formatted_part=$(printf "%05d" $part)
+            total_parts=$(printf "%05d" $PARTS)
+            filename="/app/models/${MODEL}-${formatted_part}-of-${total_parts}.gguf"
             if [ ! -f "$filename" ]; then
                 pushd /app/models
 
@@ -47,7 +49,7 @@ if [ ! -z "$URL" ]; then
                     sleep 3600
                 fi
 
-                part_url="${URL}-split-$part_suffix"
+                part_url="${URL}-${formatted_part}-of-${total_parts}.gguf"
                 download_and_verify "$part_url" "$filename"
 
                 popd
@@ -56,8 +58,8 @@ if [ ! -z "$URL" ]; then
 
         # Combine parts if necessary and clean up
         pushd /app/models
-        cat ${MODEL}-split-* > "$MODEL"
-        rm ${MODEL}-split-*
+        cat ${MODEL}-*-of-*.gguf > "$MODEL"
+        rm ${MODEL}-*-of-*.gguf
         popd
     fi
 fi
